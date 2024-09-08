@@ -64,8 +64,10 @@ export default function RootLayout({
 
               <footer className="flex justify-between items-center py-10 px-5 border-t ">
                 <div className="flex gap-x-4">
-                  {routes.map((route) => (
-                    <Link href={route}>{route}</Link>
+                  {routes.map((route, index) => (
+                    <Link href={route} key={index}>
+                      {route}
+                    </Link>
                   ))}
                 </div>
                 <div>
