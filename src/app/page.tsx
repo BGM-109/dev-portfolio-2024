@@ -1,101 +1,96 @@
 import Image from "next/image";
+import Link from "next/link";
+import AvatarImage from "../../public/avatar.png";
+import { buttonVariants } from "@/components/ui/button";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { cn } from "@/lib/utils";
+
+type Post = {
+  title: string;
+  description: string;
+  link: string;
+  createdAt: Date;
+};
+
+const works: Post[] = [];
+const job = "Frontend Developer";
+const description =
+  "I'm Myoung seon,\nI write code, and I love Athletic(Crossfit, Bodybuilding)";
+const posts = [
+  {
+    title: "Who am I?",
+    description:
+      "I'm Myoung seon, I write code, and I love Athletic(Crossfit, Bodybuilding)",
+    link: "/about",
+    createdAt: new Date("2024-09-08"),
+  },
+];
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className="flex flex-col gap-y-10">
+      <section className="flex flex-col items-start justify-center p-10 gap-y-4">
         <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+          src={AvatarImage}
+          alt="avatar"
+          width={64}
+          height={64}
+          className="rounded-full"
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+        <h1 className="text-4xl font-bold">{job}</h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+        <p className="text-base text-muted-foreground whitespace-pre">
+          {description}
+        </p>
+
+        <div>
+          <Link
+            className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
+            href={"https://github.com/BGM-109"}
             target="_blank"
-            rel="noopener noreferrer"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <GitHubLogoIcon className="w-5 h-5" />
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      <section>
+        <div className="text-center">
+          <h2 className="text-2xl font-bold">This is My work</h2>
+          <p className="text-muted-foreground">Try Link to see more</p>
+        </div>
+        <div className="flex flex-col items-center justify-center">
+          {works.length === 0 && (
+            <div className="min-h-[250px] flex items-center justify-center">
+              Not yet....
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="flex flex-col py-5">
+        {posts.map((post, index) => (
+          <Link
+            href={post.link}
+            key={index}
+            className="px-4 py-6 hover:bg-secondary border-none gap-y-2 flex flex-col hover:cursor-pointer w-fit rounded-lg"
+          >
+            <div className="flex items-center">
+              <div className="w-1 h-4 bg-secondary mr-2" />
+              <p className="text-muted-foreground text-xs">
+                {new Date(post.createdAt).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </p>
+            </div>
+            <h2 className="text-xl font-bold">{post.title}</h2>
+            <p className="text-muted-foreground">{post.description}</p>
+            <p className="text-primary font-bold text-sm">Read Post →</p>
+          </Link>
+        ))}
+      </section>
     </div>
   );
 }
